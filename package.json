@@ -1,0 +1,22 @@
+{
+  "name": "devtribe",
+  "version": "1.0.0",
+  "description": "Developer's Tribe",
+  "keywords": [
+    "node",
+    "js",
+    "js"
+  ],
+  "license": "ISC",
+  "author": "Jithin Russel",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev" : "nodemon src/app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}

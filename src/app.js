@@ -2,23 +2,31 @@ const express = require('express');
 
 const app = express();
 
-app.get("/user" , (req,res,next) => {
+app.use("/admin", (req,res,next) => {
+    console.log("admin is being checked");
+    const token ="xyz";
+    const isAuthorized = token == "xyz";
 
-    console.log("GO to Response Handler 2")
-    // res.send("Hi nodemon test from the serverrrrrrr 1");
-    next();
-},
+    if (isAuthorized){
+        next();
+    }
+    else {
+        res.status(401).send("Admin is not Authorised Sorry Try Again and fail better");
 
-[(req,res,next) => {
-    // res.send("Hi nodemon test from the serverrrrrrr 2");
-    next()
-},
+    }
+})
 
-(req,res) => {
-    res.send("Hi nodemon test from the serverrrrrrr 3");
-}]
+app.get("/admin/getUserData" , (req,res) => {
 
-)
+    res.send("Fetched User Data");
+
+}),
+
+app.get("/admin/deleteUserData" , (req,res) => {
+
+    res.send("Deleted User Data");
+    
+}),
 
 
 app.listen(3000, () => {

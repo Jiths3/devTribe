@@ -2,13 +2,23 @@ const express = require('express');
 
 const app = express();
 
-app.get("/" , (req,res) => {
-    res.send("Hi nodemon test from the serverrrrrrr ////");
-})
+app.get("/user" , (req,res,next) => {
 
-app.get("/hello" , (req,res) => {
-    res.send("Hi nodemon test from HELLOOO");
-});
+    console.log("GO to Response Handler 2")
+    // res.send("Hi nodemon test from the serverrrrrrr 1");
+    next();
+},
+
+[(req,res,next) => {
+    // res.send("Hi nodemon test from the serverrrrrrr 2");
+    next()
+},
+
+(req,res) => {
+    res.send("Hi nodemon test from the serverrrrrrr 3");
+}]
+
+)
 
 
 app.listen(3000, () => {

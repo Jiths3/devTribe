@@ -2,32 +2,39 @@ const express = require('express');
 
 const app = express();
 
-app.use("/admin", (req,res,next) => {
-    console.log("admin is being checked");
-    const token ="xyz";
-    const isAuthorized = token == "xyz";
 
-    if (isAuthorized){
-        next();
-    }
-    else {
-        res.status(401).send("Admin is not Authorised Sorry Try Again and fail better");
 
-    }
-})
+// const { adminAuth } = require("./middlewares/auth");
 
-app.get("/admin/getUserData" , (req,res) => {
+// app.use("/admin", adminAuth);
 
-    res.send("Fetched User Data");
+// app.get("/admin/getUserData" , (req,res) => {
 
-}),
+//     res.send("Fetched User Data");
 
-app.get("/admin/deleteUserData" , (req,res) => {
+// }),
 
-    res.send("Deleted User Data");
+// app.get("/admin/deleteUserData" , (req,res) => {
+
+//     res.send("Deleted User Data");
     
-}),
+// }),
 
+
+
+app.get("/getUserData", (req,res) =>{
+
+    throw new Error("ksmdkammd");
+    res.send("user data send");
+}) 
+
+
+
+app.use((err,req,res,next) =>{
+    if(err){
+    res.status(500).send("Something Went Wrong");
+    }
+}) ;
 
 app.listen(3000, () => {
     console.log("server is successfully connected to port 3000 !!!")

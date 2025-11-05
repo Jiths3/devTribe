@@ -4,15 +4,11 @@ const {userModel} = require("./models/user");
 
 const app = express();
 
+app.use(express.json());
 
 app.post("/signUp", async (req,res) => {
 
-    const user = new userModel({
-        firstName:"Jithin",
-        lastname:"Russel",
-        emailId:"jithinchacko71@gmail.com",
-        password:"jiths1234",
-    })
+    const user = new userModel(req.body);
 
     try{
 

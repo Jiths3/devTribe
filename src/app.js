@@ -1,41 +1,42 @@
 const express = require('express');
+const {connectDB} = require('./config/database');
+const {userModel} = require("./models/user");
 
 const app = express();
 
 
+app.post("/signUp", async (req,res) => {
 
-// const { adminAuth } = require("./middlewares/auth");
+    const user = new userModel({
+        firstName:"Jithin",
+        lastname:"Russel",
+        emailId:"jithinchacko71@gmail.com",
+        password:"jiths1234",
+    })
 
-// app.use("/admin", adminAuth);
+    try{
 
-// app.get("/admin/getUserData" , (req,res) => {
-
-//     res.send("Fetched User Data");
-
-// }),
-
-// app.get("/admin/deleteUserData" , (req,res) => {
-
-//     res.send("Deleted User Data");
-    
-// }),
-
-
-
-app.get("/getUserData", (req,res) =>{
-
-    throw new Error("ksmdkammd");
-    res.send("user data send");
-}) 
-
-
-
-app.use((err,req,res,next) =>{
-    if(err){
-    res.status(500).send("Something Went Wrong");
+        await user.save();
+        res.send("User Added Successfully");
+        
     }
-}) ;
+    catch(err){
+        res.status(400).send("Error saving the user");
 
-app.listen(3000, () => {
+    }
+    
+    
+
+});
+
+
+
+connectDB().then(()=>{
+    console.log("Database connection established")
+    app.listen(3000, () => {
     console.log("server is successfully connected to port 3000 !!!")
+    })
 })
+.catch(err => {
+    console.error("Database cannot be connected");
+});

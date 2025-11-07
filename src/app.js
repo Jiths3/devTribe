@@ -21,39 +21,70 @@ app.post("/signUp", async (req,res) => {
     }
 });
 
-
-// find user by email
+// fetch all data
 
 app.get("/user", async (req,res)=>{
-    const userId = req.body.Id;
 
     try{
-        const user = await userModel.findById(userId)
-        res.send(user);
+            const user = await userModel.find({});
+            res.send(user);
+
+        }
+
+    catch (err) {
+        res.status(400).send("Something Went Wrong");
 
     }
-
-    catch(err){
-        res.status(404).send("User Not Found");
-
-    }
-
-
-
-    // try{
-    //         const user = await userModel.find({emailId:userEmail});
-    //         res.send(user);
-
-
-    //     }
-
-    // catch (err) {
-    //     res.status(400).send("Something Went Wrong");
-
-    // }
 
 
 })
+
+
+// find user by email
+
+
+// app.get("/user", async (req,res)=>{
+//     const userEmail = req.body.emailId;
+
+//     try{
+//             const user = await userModel.find({emailId:userEmail});
+//             res.send(user);
+
+//         }
+
+//     catch (err) {
+//         res.status(400).send("Something Went Wrong");
+
+//     }
+
+
+// })
+
+
+
+// app.get("/user", async (req,res)=>{
+//     const userId = req.body.Id;
+
+//     try{
+//         const user = await userModel.findById(userId)
+//         res.send(user);
+
+//     }
+
+//     catch(err){
+//         res.status(404).send("User Not Found");
+
+//     }
+// })
+
+    
+
+
+
+
+
+
+
 
 
 

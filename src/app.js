@@ -28,7 +28,6 @@ app.get("/user", async (req,res)=>{
     try{
             const user = await userModel.find({});
             res.send(user);
-
         }
 
     catch (err) {
@@ -37,6 +36,46 @@ app.get("/user", async (req,res)=>{
     }
 
 
+})
+
+//Delete User data 
+
+app.delete("/deleteUser", async(req,res)=>{
+
+    const userId = req.body.userId;
+
+    try{
+        const user = await userModel.findByIdAndDelete(userId);
+        res.send("User Deleted Successfully");
+
+    }
+
+    catch (err) {
+        res.status(400).send("Something Went Wrong");
+
+    }
+})
+
+// Update User data 
+
+app.patch("/updateUser" , async(req,res) => {
+
+
+    const email = req.body.email;
+    const data = req.body;
+
+    try{
+        await userModel.findOneAndUpdate({ emailId : email}, data)
+        res.send("User Updated Successfully");
+
+
+    }
+
+    catch (err) {
+        res.status(400).send("Something Went Wrong");
+
+
+    }
 })
 
 

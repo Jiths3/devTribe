@@ -16,7 +16,7 @@ app.post("/signUp", async (req,res) => {
         res.send("User Added Successfully");   
     }
     catch(err){
-        res.status(400).send("Error saving the user");
+        res.status(400).send("Something went Wrong User Cannot be added:" + err);
 
     }
 });
@@ -65,14 +65,14 @@ app.patch("/updateUser" , async(req,res) => {
     const data = req.body;
 
     try{
-        await userModel.findOneAndUpdate({ emailId : email}, data)
+        await userModel.findOneAndUpdate({ emailId : email}, data, {runValidators:true})
         res.send("User Updated Successfully");
 
 
     }
 
     catch (err) {
-        res.status(400).send("Something Went Wrong");
+        res.status(400).send("Update Failed:" + err.message);
 
 
     }

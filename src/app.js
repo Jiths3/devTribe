@@ -58,14 +58,21 @@ app.delete("/deleteUser", async(req,res)=>{
 
 // Update User data 
 
-app.patch("/updateUser" , async(req,res) => {
+app.patch("/updateUser/:email" , async(req,res) => {
 
 
-    const email = req.body.email;
+    const email = req.params?.email;
     const data = req.body;
 
     try{
-        await userModel.findOneAndUpdate({ emailId : email}, data, {runValidators:true})
+        const Allowed_Updates = ["lastname" ,"photoUrl", "about" , "gender", "age", "skills","firstname"];
+        const isUpdateAllowed = Object.keys(data).every((k)=>Allowed_Updates.includes(k));
+        
+        if (!isUpdateAllowed){
+            throw new Error("Update Not allowed");
+        }
+        
+        await userModel.findOneAndUpdate({emailId : email}, data, {runValidators:true})
         res.send("User Updated Successfully");
 
 
